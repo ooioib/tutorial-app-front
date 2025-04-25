@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "./TypingTest.css";
-
-function TypingTest({ setViewName }) {
+function TypingTest({ setViewName, setTypingScore }) {
   const [targetText, setTargetText] = useState("Download the React DevTools.");
   const [elapsed, setElapsed] = useState(0);
   const [started, setStarted] = useState(false);
@@ -23,14 +22,12 @@ function TypingTest({ setViewName }) {
       setStarted(true);
       return;
     }
-
     if (evt.key === "Backspace") {
       evt.preventDefault();
       evt.target.value = "";
       setAccuracy(100);
       return;
     }
-
     if (evt.ctrlKey && evt.key === "v") {
       evt.preventDefault();
       return;
@@ -67,6 +64,26 @@ function TypingTest({ setViewName }) {
     setAccuracy((correct / (correct + wrong)) * 100);
   }
 
+  // 제출하기 버튼 클릭 이벤트 처리용
+  function registerClickHandle(evt) {
+    fetch("http://192.168.10.97:8080/api/typingScore/create", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: "accuracy=" + accuracy + "&elapsed=" + elapsed / 10,
+    })
+      .then(function (response) {
+        console.log(response.status);
+        return response.json();
+      })
+      .then(function (json) {
+        console.log(json);
+        setTypingScore(json);
+        setViewName("TypingResult");
+      });
+  }
+
   function contextMenuHandle(evt) {
     evt.preventDefault();
   }
@@ -100,22 +117,29 @@ function TypingTest({ setViewName }) {
           <span className="accuracy-value">{accuracy.toFixed(2)}%</span>
         </span>
       </div>
-      {!started && elapsed === 0 && (
-        <>
-          <button className="typing-restart-btn">돌아가기</button>
-        </>
-      )}
-      {started && (
-        <>
-          <button className="typing-restart-btn">포기하기</button>
-        </>
-      )}
-      {!started && elapsed !== 0 && (
-        <>
-          <button className="typing-restart-btn">제출하기</button>
-          <button className="typing-restart-btn">다시하기</button>
-        </>
-      )}
+      <div>
+        {!started && elapsed === 0 && (
+          <>
+            <button className="typing-restart-btn">돌아가기</button>
+          </>
+        )}
+        {started && (
+          <>
+            <button className="typing-restart-btn">포기하기</button>
+          </>
+        )}
+        {!started && elapsed !== 0 && (
+          <>
+            <button className="typing-restart-btn">다시하기</button>
+            <button
+              className="typing-restart-btn"
+              onClick={registerClickHandle}
+            >
+              제출하기
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 }
