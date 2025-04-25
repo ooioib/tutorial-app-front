@@ -1,18 +1,28 @@
-import { click } from "@testing-library/user-event/dist/click";
 import "./Landing.css";
 
 function Landing({ setViewName }) {
   function clickHandle(evt) {
-    setViewName("TypingTest");
+    setViewName(evt.target.dataset.view);
   }
 
   return (
     <div className="container">
       <div className="landing">
-        <h1 className="title">타이핑 속도 측정기</h1>
-        <p className="desc">당신의 타이핑 속도를 확인해보세요!</p>
-        <button className="start-btn" onClick={clickHandle}>
-          시작하기
+        <h1 className="title">미니게임</h1>
+        <p className="desc">게임을 선택하세요!</p>
+        <button
+          className="start-btn"
+          onClick={clickHandle}
+          data-view="TypingTest"
+        >
+          타이핑속도
+        </button>
+        <button
+          className="start-btn"
+          onClick={clickHandle}
+          data-view="RpsBattle"
+        >
+          가위바위보
         </button>
       </div>
     </div>

@@ -1,0 +1,81 @@
+/* 전체 배경 설정 */
+.rps-game {
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  min-height: 100vh;
+}
+
+/* 타이틀 */
+.rps-game h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #333;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+/* 컴퓨터와 사용자 영역 공통 */
+.computer-choice,
+.user-choice {
+  background: #ffffffcc;
+  border-radius: 20px;
+  padding: 30px;
+  margin: 20px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* 선택 표시 */
+.choice-display {
+  font-size: 3rem;
+  margin-top: 10px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 버튼 컨테이너 */
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+/* 선택 버튼 스타일 */
+.btn {
+  padding: 14px 20px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: linear-gradient(145deg, #e2e8f0, #cbd5e0);
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1),
+    -3px -3px 6px rgba(255, 255, 255, 0.5);
+}
+
+.btn:hover {
+  transform: scale(1.1);
+  background: linear-gradient(145deg, #c3dafe, #a3bffa);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 500px) {
+  .buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
